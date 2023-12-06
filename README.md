@@ -17,3 +17,11 @@ Justamente para resolver tais dificuldades é que foi criado um novo módulo do 
 O lançamento do Spring Boot foi um marco para o desenvolvimento de aplicações Java, pois tornou tal tarefa mais simples e ágil de se realizar, facilitando bastante a vida das pessoas que utilizam a linguagem Java para desenvolver suas aplicações.
 
 Ao longo do curso aprenderemos como desenvolver uma aplicação utilizando o Spring Boot, em conjunto com diversos outros módulos do Spring, de maneira simples e produtiva.
+
+#Ferramentas de migração
+
+Flyway e controle de mudanças no banco de dados
+
+#Injeção de dependencias
+
+Anotação @Autowired em cima da interface repository extendendo o JpaRepository faz esse controle de dependencias.

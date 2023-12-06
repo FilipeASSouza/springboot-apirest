@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.medico.DadosCadastroMedicoDTO;
 import med.voll.api.medico.Especialidade;
 
 @Table(name = "medicos")
@@ -22,6 +23,7 @@ import med.voll.api.medico.Especialidade;
 @EqualsAndHashCode(of = "id")
 public class Medico {
 	
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
@@ -34,4 +36,13 @@ public class Medico {
 	@Embedded
 	private Endereco endereco;
 
+	public Medico(DadosCadastroMedicoDTO origemDTO) {
+		
+		this.nome = origemDTO.nome();
+		this.email = origemDTO.email();
+		this.crm = origemDTO.crm();
+		this.endereco = new Endereco(origemDTO.endereco());
+		this.especialidade = origemDTO.especialidade();
+		
+	}
 }
