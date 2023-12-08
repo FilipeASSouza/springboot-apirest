@@ -12,7 +12,9 @@ public record DadosCadastroMedicoDTO(
 		String nome, 
 		@NotBlank
 		@Email //valida o formato
-		String email, 
+		String email,
+		@NotBlank
+		String telefone,
 		@NotBlank
 		@Pattern(regexp = "\\d{4,6}")//\\d informa que é digito e de 4 a 6 digitos
 		String crm, 
