@@ -35,3 +35,7 @@ ao mexer em migration pare o projeto
 https://cursos.alura.com.br/forum/topico-erro-embedded-255382
 
 https://projectlombok.org/setup/eclipse
+
+## anotacoes bean validation ##
+
+https://jakarta.ee/specifications/bean-validation/3.0/jakarta-bean-validation-spec-3.0.html#builtinconstraints
