@@ -29,3 +29,9 @@ Anotação @Autowired em cima da interface repository extendendo o JpaRepository
 ## importante ##
 
 ao mexer em migration pare o projeto
+
+## instalação lombok no projeto para ide eclipse ##
+
+https://cursos.alura.com.br/forum/topico-erro-embedded-255382
+
+https://projectlombok.org/setup/eclipse
