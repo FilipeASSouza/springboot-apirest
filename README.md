@@ -25,3 +25,7 @@ Flyway e controle de mudanças no banco de dados
 #Injeção de dependencias
 
 Anotação @Autowired em cima da interface repository extendendo o JpaRepository faz esse controle de dependencias.
+
+## importante ##
+
+ao mexer em migration pare o projeto
