@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.validation.Valid;
 import med.voll.api.entidades.Medico;
 import med.voll.api.medico.DadosAtualizarMedicoDTO;
 import med.voll.api.medico.DadosCadastroMedicoDTO;
+import med.voll.api.medico.DadosDetalhamentoMedicoDTO;
 import med.voll.api.medico.DadosListagemMedicoDTO;
 import med.voll.api.repository.MedicoRepository;
 
@@ -31,27 +34,42 @@ public class MedicoController {
 	
 	@PostMapping
 	@Transactional
-	public void cadastrar(@RequestBody @Valid DadosCadastroMedicoDTO dados) {
-		repository.save(new Medico(dados));		
+	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedicoDTO dadosDTO, UriComponentsBuilder uriBuilder) {
+		
+		var medico = new Medico(dadosDTO);
+		
+		repository.save(medico);
+		
+		//post cadastrar retorno correto é o 201, precisa da uri e do corpo para implementar esse retorno
+		
+		var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(new DadosDetalhamentoMedicoDTO(medico));
 	}
 	
 	@GetMapping
-	public Page<DadosListagemMedicoDTO> listarTodos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-		return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicoDTO::new);
+	public ResponseEntity<Page<DadosListagemMedicoDTO>> listarTodos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+		 Page<DadosListagemMedicoDTO> page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicoDTO::new);
+		 
+		 return ResponseEntity.ok(page);
 	}
 	
 	@PutMapping
 	@Transactional
-	public void atualizar(@RequestBody @Valid DadosAtualizarMedicoDTO dados) {
+	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarMedicoDTO dados) {
 		
 		Medico medico = repository.getReferenceById(dados.id());
 		medico.atualizarInformacoes(dados);
+		
+		return ResponseEntity.ok(new DadosDetalhamentoMedicoDTO(medico));
 	}
 	
 	@DeleteMapping("/{id}")
 	@Transactional
-	public void excluir(@PathVariable Long id) {
+	public ResponseEntity excluir(@PathVariable Long id) {
 		Medico medico = repository.getReferenceById(id);
 		medico.inativarMedico();
+		
+		return ResponseEntity.noContent().build();
 	}
 }
