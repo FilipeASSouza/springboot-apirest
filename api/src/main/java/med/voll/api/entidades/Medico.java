@@ -8,10 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.voll.api.medico.DadosAtualizarMedicoDTO;
 import med.voll.api.medico.DadosCadastroMedicoDTO;
 import med.voll.api.medico.Especialidade;
 
@@ -46,5 +48,20 @@ public class Medico {
 		this.endereco = new Endereco(origemDTO.endereco());
 		this.especialidade = origemDTO.especialidade();
 		
+	}
+
+	public void atualizarInformacoes(@Valid DadosAtualizarMedicoDTO dados) {
+		
+		if(dados.nome() != null) {			
+			this.nome = dados.nome();
+		}
+		
+		if(dados.telefone() != null) {
+			this.telefone = dados.telefone();
+		}
+		
+		if(dados.endereco() != null) {
+			this.endereco.atualizarInformacoes(dados.endereco());
+		}
 	}
 }
