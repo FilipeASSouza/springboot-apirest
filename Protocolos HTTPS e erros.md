@@ -29,3 +29,7 @@ Error 503
 O erro 503 significa que o serviço acessado está temporariamente indisponível. Causas comuns são um servidor em manutenção ou sobrecarregado. Ataques maliciosos, como o DDoS, causam bastante esse problema.
 
 Uma dica final: dificilmente conseguimos guardar em nossa cabeça o que cada código significa, portanto, existem sites na internet que possuem todos os códigos e os significados para que possamos consultar quando necessário. Existem dois sites bem conhecidos e utilizados por pessoas desenvolvedoras, um para cada preferência: se você gosta de gatos, pode utilizar o HTTP Cats; já, se prefere cachorros, utilize o HTTP Dogs.
+
+## Propriedade para evitar stacktrace no corpo da resposta
+
+server.error.include-stacktrace=never
