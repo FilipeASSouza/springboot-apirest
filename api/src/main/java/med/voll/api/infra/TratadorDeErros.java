@@ -22,12 +22,12 @@ public class TratadorDeErros {
 		
 		var erros = e.getFieldErrors();
 		
-		return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacao::new).toList());
+		return ResponseEntity.badRequest().body(erros.stream().map(DadosErroValidacaoDTO::new).toList());
 	}
 	
-	private record DadosErroValidacao(String campo, String mensagem) {
+	private record DadosErroValidacaoDTO(String campo, String mensagem) {
 		
-		public DadosErroValidacao(FieldError erro) {
+		public DadosErroValidacaoDTO(FieldError erro) {
 			this(erro.getField(), erro.getDefaultMessage());
 		}
 	}

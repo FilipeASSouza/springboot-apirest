@@ -1,0 +1,3 @@
+## Tipos de autenticacao ##
+
+https://www.alura.com.br/artigos/tipos-de-autenticacao?_gl=1*13vzpkt*_ga*MTU4NzgwMTU5Mi4xNjk4MzQyNTk1*_ga_1EPWSW3PCS*MTcwMjU3ODQ1OS40NS4xLjE3MDI1Nzg4OTguMC4wLjA.*_fplc*Zk9KWHlBa2p5aTVqYlNuR0h4NWJCNHZmWDlsbmxhdXlWYSUyQld6QXBxejdtVFpaT04wOE9TRHNoSlhBeGgxdW9hQUg1SXVKeGZkOEU2T01FRlVHWmpRb0Z4QyUyQmFTdGNuYUc0JTJGVjUzejFlRzglMkZsdGVhd2tEWDdmN3R3ck4zVVElM0QlM0Q.
