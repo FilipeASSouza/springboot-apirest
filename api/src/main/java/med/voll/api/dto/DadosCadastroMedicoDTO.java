@@ -8,19 +8,19 @@ import jakarta.validation.constraints.Pattern;
 import med.voll.api.enums.Especialidade;
 
 public record DadosCadastroMedicoDTO(
-		@NotBlank // verifica se não é nulo e vazio campos string
+		@NotBlank(message = "Nome é um campo obrigátorio.") // verifica se não é nulo e vazio campos string
 		String nome, 
-		@NotBlank
+		@NotBlank(message = "E-mail é um campo obrigátorio.")
 		@Email //valida o formato
 		String email,
-		@NotBlank
+		@NotBlank(message = "Telefone é um campo obrigátorio.")
 		String telefone,
-		@NotBlank
+		@NotBlank(message = "Crm é um campo obrigátorio.")
 		@Pattern(regexp = "\\d{4,6}")//\\d informa que é digito e de 4 a 6 digitos
 		String crm, 
-		@NotNull
+		@NotNull(message = "Especialidade é um campo obrigátorio.")
 		Especialidade especialidade, 
-		@NotNull
+		@NotNull(message = "Endereco é obrigátorio.")
 		@Valid // valida outro dto dentro desse mesmo record
 		DadosEnderecoDTO endereco
 		) {
