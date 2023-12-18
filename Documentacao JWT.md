@@ -9,3 +9,7 @@ https://www.alura.com.br/artigos/o-que-e-json-web-tokens?_gl=1*2qwkid*_ga*MTU4Nz
 ## Alura - O que é Json Web Token (JWT)? ##
 
 https://cursos.alura.com.br/extra/alura-mais/o-que-e-json-web-token-jwt--c203
+
+## Repositorio ##
+
+https://github.com/auth0/java-jwt
