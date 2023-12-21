@@ -2,8 +2,6 @@ package med.voll.api.entidades;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -13,47 +11,39 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import med.voll.api.dto.medico.DadosAtualizarMedicoDTO;
-import med.voll.api.dto.medico.DadosCadastroMedicoDTO;
-import med.voll.api.enums.Especialidade;
+import med.voll.api.dto.paciente.DadosAtualizarPacienteDTO;
+import med.voll.api.dto.paciente.DadosCadastroPacienteDTO;
 
-@Table(name = "medicos")
-@Entity(name = "Medico")
+@Table(name = "pacientes")
+@Entity(name = "Paciente")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Medico {
+public class Paciente {
 	
-
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
-	private String crm;
-	
-	@Enumerated(EnumType.STRING)
-	private Especialidade especialidade;
 	
 	@Embedded
 	private Endereco endereco;
 	
-	private Boolean ativo;	
-
-	public Medico(DadosCadastroMedicoDTO origemDTO) {
+	private Boolean ativo;
+	
+	public Paciente(DadosCadastroPacienteDTO origemDTO) {
 		
-		this.ativo = true;
 		this.nome = origemDTO.nome();
 		this.email = origemDTO.email();
 		this.telefone = origemDTO.telefone();
-		this.crm = origemDTO.crm();
 		this.endereco = new Endereco(origemDTO.endereco());
-		this.especialidade = origemDTO.especialidade();
+		this.ativo = true;
 		
 	}
-
-	public void atualizarInformacoes(@Valid DadosAtualizarMedicoDTO dados) {
+	
+	public void atualizarInformacoes(@Valid DadosAtualizarPacienteDTO dados) {
 		
 		if(dados.nome() != null) {			
 			this.nome = dados.nome();
@@ -67,8 +57,8 @@ public class Medico {
 			this.endereco.atualizarInformacoes(dados.endereco());
 		}
 	}
-
-	public void inativarMedico() {
+	
+	public void inativarPaciente() {
 		this.ativo = false;
 	}
 }

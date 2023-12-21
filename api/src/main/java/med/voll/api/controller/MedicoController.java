@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.validation.Valid;
-import med.voll.api.dto.DadosAtualizarMedicoDTO;
-import med.voll.api.dto.DadosCadastroMedicoDTO;
-import med.voll.api.dto.DadosDetalhamentoMedicoDTO;
-import med.voll.api.dto.DadosListagemMedicoDTO;
+import med.voll.api.dto.medico.DadosAtualizarMedicoDTO;
+import med.voll.api.dto.medico.DadosCadastroMedicoDTO;
+import med.voll.api.dto.medico.DadosDetalhamentoMedicoDTO;
+import med.voll.api.dto.medico.DadosListagemMedicoDTO;
 import med.voll.api.entidades.Medico;
 import med.voll.api.repository.MedicoRepository;
 

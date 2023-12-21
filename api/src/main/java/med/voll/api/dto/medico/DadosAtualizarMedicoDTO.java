@@ -1,6 +1,7 @@
-package med.voll.api.dto;
+package med.voll.api.dto.medico;
 
 import jakarta.validation.constraints.NotNull;
+import med.voll.api.dto.endereco.DadosEnderecoDTO;
 
 public record DadosAtualizarMedicoDTO(
 		@NotNull
