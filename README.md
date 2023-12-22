@@ -39,3 +39,14 @@ https://projectlombok.org/setup/eclipse
 ## anotacoes bean validation ##
 
 https://jakarta.ee/specifications/bean-validation/3.0/jakarta-bean-validation-spec-3.0.html#builtinconstraints
+
+## Manutenção ##
+
+Códigos para novas funcionalidades
+
+Controller
+DTOs
+Entidade JPA
+Repository
+Migration
+Regras de negócio
