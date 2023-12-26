@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
+import med.voll.api.enums.Especialidade;
 
 public record DadosAgendamentoConsultaDTO(
 		Long idMedico,
@@ -11,7 +12,9 @@ public record DadosAgendamentoConsultaDTO(
 		Long idPaciente,
 		@NotNull
 		@Future
-		LocalDateTime data
+		LocalDateTime data,
+		
+		Especialidade especialidade
 		) {
 
 }
