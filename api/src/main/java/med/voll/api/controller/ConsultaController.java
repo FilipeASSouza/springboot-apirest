@@ -13,26 +13,26 @@ import jakarta.validation.Valid;
 import med.voll.api.dto.agendamento.DadosAgendamentoConsultaDTO;
 import med.voll.api.dto.agendamento.DadosDetalhamentoConsultaDTO;
 import med.voll.api.dto.cancelamento.DadosCancelamentoDeConsultaDTO;
-import med.voll.api.regras.AgendaDeConsultas;
+import med.voll.api.services.AgendaDeConsultas;
 
 @RestController
 @RequestMapping("/consultas")
 public class ConsultaController {
 	
 	@Autowired
-	private AgendaDeConsultas regrasAgendamentoDeConsultas;
+	private AgendaDeConsultas agendamentoDeConsultasService;
 	
 	@PostMapping
 	@Transactional
 	public ResponseEntity agendar(@RequestBody @Valid DadosAgendamentoConsultaDTO dadosDTO) {
-		regrasAgendamentoDeConsultas.agendar(dadosDTO);
+		agendamentoDeConsultasService.agendar(dadosDTO);
 		return ResponseEntity.ok(new DadosDetalhamentoConsultaDTO(null, null, null, null));
 	}
 	
 	@DeleteMapping
 	@Transactional
 	public ResponseEntity cancelar(@RequestBody @Valid DadosCancelamentoDeConsultaDTO dadosDTO) {
-		regrasAgendamentoDeConsultas.cancelar(dadosDTO);
+		agendamentoDeConsultasService.cancelar(dadosDTO);
 		return null;
 	}
 
