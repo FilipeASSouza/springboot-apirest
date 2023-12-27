@@ -1,5 +1,7 @@
 package med.voll.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import med.voll.api.infra.exception.ValidacaoException;
 import med.voll.api.repository.ConsultaRepository;
 import med.voll.api.repository.MedicoRepository;
 import med.voll.api.repository.PacienteRepository;
+import med.voll.api.validacoes.ValidadorAgendamentoDeConsulta;
 
 @Service
 public class AgendaDeConsultas {
@@ -24,6 +27,9 @@ public class AgendaDeConsultas {
 	@Autowired
 	private PacienteRepository pacienteRepository;
 	
+	@Autowired
+	private List<ValidadorAgendamentoDeConsulta> validadores;
+	
 	public void agendar(DadosAgendamentoConsultaDTO dadosDTO) throws ValidacaoException {
 		
 		if(!pacienteRepository.existsById(dadosDTO.idPaciente())) {
@@ -33,6 +39,8 @@ public class AgendaDeConsultas {
 		if(dadosDTO.idMedico() != null && !medicoRepository.existsById(dadosDTO.idMedico())) {
 			throw new ValidacaoException("Medico não está cadastrado!");
 		}
+		
+		validadores.forEach(v -> v.validar(dadosDTO));
 		
 		var medico = escolherMedico(dadosDTO);
 		

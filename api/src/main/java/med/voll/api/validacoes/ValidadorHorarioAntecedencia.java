@@ -3,10 +3,13 @@ package med.voll.api.validacoes;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.springframework.stereotype.Component;
+
 import med.voll.api.dto.agendamento.DadosAgendamentoConsultaDTO;
 import med.voll.api.infra.exception.ValidacaoException;
 
-public class ValidadorHorarioAntecedencia {
+@Component
+public class ValidadorHorarioAntecedencia implements ValidadorAgendamentoDeConsulta{
 	
 	public void validar(DadosAgendamentoConsultaDTO dadosDTO) {
 		
