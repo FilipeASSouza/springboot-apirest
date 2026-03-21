@@ -26,7 +26,7 @@ public class SpringDocConfigurations {
 	        		  .description("API Rest da aplicação Voll Med")
 	        		  .contact(new Contact()
 	        				  .name("Filipe Augusto")
-	        				  .email("teste@teste.com.br"))
+	        				  .email("filipe.sistemas@gmail.com"))
 	        		  .license(new License()
 	        				  .name("Apache 2.0")
 	        				  .url("http://voll.med/api/licenca")));

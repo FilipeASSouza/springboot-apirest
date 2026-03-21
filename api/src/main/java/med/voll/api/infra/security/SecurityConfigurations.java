@@ -34,7 +34,7 @@ public class SecurityConfigurations {
 				.requestMatchers(HttpMethod.POST, "/login").permitAll()
 				.requestMatchers(HttpMethod.DELETE, "/medicos/excluir").hasRole("ADMIN")
 				.requestMatchers(HttpMethod.DELETE, "/pacientes/excluir").hasRole("ADMIN")
-				.requestMatchers("/v1/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+				.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
 				.anyRequest().authenticated()
 				.and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
