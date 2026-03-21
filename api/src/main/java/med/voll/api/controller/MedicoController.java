@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,39 +19,54 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.voll.api.dto.medico.DadosAtualizarMedicoDTO;
-import med.voll.api.dto.medico.DadosCadastroMedicoDTO;
-import med.voll.api.dto.medico.DadosDetalhamentoMedicoDTO;
-import med.voll.api.dto.medico.DadosListagemMedicoDTO;
-import med.voll.api.entidades.Medico;
-import med.voll.api.repository.MedicoRepository;
+import med.voll.api.domain.medico.DadosAtualizarMedicoDTO;
+import med.voll.api.domain.medico.DadosCadastroMedicoDTO;
+import med.voll.api.domain.medico.DadosDetalhamentoMedicoDTO;
+import med.voll.api.domain.medico.DadosListagemMedicoDTO;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.MedicoRepository;
 
 @RestController
 @RequestMapping("/medicos")
 @SecurityRequirement(name = "bearer-key")
 public class MedicoController {
 	
-	//repository vai fazer a injecao de dependencia
 	@Autowired
 	private MedicoRepository repository;
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedicoDTO dadosDTO, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity cadastrarMedico(
+			@RequestBody @Valid DadosCadastroMedicoDTO dadosDTO, 
+			UriComponentsBuilder uriBuilder
+			) {
 		
 		var medico = new Medico(dadosDTO);
 		
 		repository.save(medico);
-		
-		//post cadastrar retorno correto é o 201, precisa da uri e do corpo para implementar esse retorno
 		
 		var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(new DadosDetalhamentoMedicoDTO(medico));
 	}
 	
-	@GetMapping
-	public ResponseEntity<Page<DadosListagemMedicoDTO>> listarTodos(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
+	@GetMapping("/listarMedicos")
+	public ResponseEntity<Page<DadosListagemMedicoDTO>> listarMedicos(
+			@PageableDefault(size = 10, sort = {"nome"}) 
+			Pageable paginacao
+			) {
+		
+		 Page<DadosListagemMedicoDTO> page = repository.findAll(paginacao).map(DadosListagemMedicoDTO::new);
+		 
+		 return ResponseEntity.ok(page);
+	}
+	
+	@GetMapping("/listarMedicosAtivos")
+	public ResponseEntity<Page<DadosListagemMedicoDTO>> listarMedicosAtivos(
+			@PageableDefault(size = 10, sort = {"nome"}) 
+			Pageable paginacao
+			) {
+		
 		 Page<DadosListagemMedicoDTO> page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedicoDTO::new);
 		 
 		 return ResponseEntity.ok(page);
@@ -58,7 +74,7 @@ public class MedicoController {
 	
 	@PutMapping
 	@Transactional
-	public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarMedicoDTO dados) {
+	public ResponseEntity atualizarMedico(@RequestBody @Valid DadosAtualizarMedicoDTO dados) {
 		
 		Medico medico = repository.getReferenceById(dados.id());
 		medico.atualizarInformacoes(dados);
@@ -66,17 +82,27 @@ public class MedicoController {
 		return ResponseEntity.ok(new DadosDetalhamentoMedicoDTO(medico));
 	}
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/inativarMedico/{id}")
 	@Transactional
-	public ResponseEntity excluir(@PathVariable Long id) {
+	public ResponseEntity inativarMedico(@PathVariable Long id) {
 		Medico medico = repository.getReferenceById(id);
 		medico.inativarMedico();
 		
 		return ResponseEntity.noContent().build();
 	}
 	
+	@DeleteMapping("/excluir/{id}")
+	@Transactional
+	@Secured("ROLE_ADMIN")
+	public ResponseEntity excluirMedico(@PathVariable Long id) {
+		
+		repository.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
 	@GetMapping("/{id}")
-	public ResponseEntity detalhar(@PathVariable Long id) {
+	public ResponseEntity detalharMedico(@PathVariable Long id) {
 		Medico medico = repository.getReferenceById(id);
 		
 		return ResponseEntity.ok(new DadosDetalhamentoMedicoDTO(medico));

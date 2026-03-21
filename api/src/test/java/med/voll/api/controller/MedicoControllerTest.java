@@ -18,13 +18,13 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import med.voll.api.dto.endereco.DadosEnderecoDTO;
-import med.voll.api.dto.medico.DadosCadastroMedicoDTO;
-import med.voll.api.dto.medico.DadosDetalhamentoMedicoDTO;
-import med.voll.api.entidades.Endereco;
-import med.voll.api.entidades.Medico;
-import med.voll.api.enums.Especialidade;
-import med.voll.api.repository.MedicoRepository;
+import med.voll.api.domain.endereco.DadosEnderecoDTO;
+import med.voll.api.domain.endereco.Endereco;
+import med.voll.api.domain.medico.DadosCadastroMedicoDTO;
+import med.voll.api.domain.medico.DadosDetalhamentoMedicoDTO;
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.MedicoRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc

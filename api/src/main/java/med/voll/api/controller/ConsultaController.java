@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import med.voll.api.dto.agendamento.DadosAgendamentoConsultaDTO;
-import med.voll.api.dto.agendamento.DadosDetalhamentoConsultaDTO;
-import med.voll.api.dto.cancelamento.DadosCancelamentoDeConsultaDTO;
-import med.voll.api.services.AgendaDeConsultas;
+import med.voll.api.domain.consulta.AgendaDeConsultas;
+import med.voll.api.domain.consulta.DadosAgendamentoConsultaDTO;
+import med.voll.api.domain.consulta.DadosCancelamentoDeConsultaDTO;
+import med.voll.api.domain.consulta.DadosDetalhamentoConsultaDTO;
 
 @RestController
 @RequestMapping("/consultas")

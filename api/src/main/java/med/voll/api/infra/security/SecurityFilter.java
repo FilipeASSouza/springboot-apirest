@@ -12,7 +12,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import med.voll.api.repository.UsuariosRepository;
+import med.voll.api.domain.usuario.UsuariosRepository;
 
 @Component //anotação component informa ao spring que classe generica e que deve ser iniciada junto com o servidor
 public class SecurityFilter extends OncePerRequestFilter {

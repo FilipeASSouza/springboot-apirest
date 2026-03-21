@@ -17,13 +17,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
 
-import med.voll.api.dto.endereco.DadosEnderecoDTO;
-import med.voll.api.dto.medico.DadosCadastroMedicoDTO;
-import med.voll.api.dto.paciente.DadosCadastroPacienteDTO;
-import med.voll.api.entidades.Consulta;
-import med.voll.api.entidades.Medico;
-import med.voll.api.entidades.Paciente;
-import med.voll.api.enums.Especialidade;
+import med.voll.api.domain.consulta.Consulta;
+import med.voll.api.domain.endereco.DadosEnderecoDTO;
+import med.voll.api.domain.medico.DadosCadastroMedicoDTO;
+import med.voll.api.domain.medico.Especialidade;
+import med.voll.api.domain.medico.Medico;
+import med.voll.api.domain.medico.MedicoRepository;
+import med.voll.api.domain.paciente.DadosCadastroPacienteDTO;
+import med.voll.api.domain.paciente.Paciente;
 
 //quando quer testar algo na camada jpa no repository usa essa anotação
 @DataJpaTest

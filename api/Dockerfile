@@ -17,4 +17,4 @@ RUN chmod +x ./mvnw || true
 RUN mvn clean package -DskipTests
 
 # 6️⃣ Comando para rodar a aplicação
-CMD ["java", "-jar", "target/api-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "target/api-0.0.2-SNAPSHOT.jar"]

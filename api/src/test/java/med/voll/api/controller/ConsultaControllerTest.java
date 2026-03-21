@@ -20,10 +20,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import med.voll.api.dto.agendamento.DadosAgendamentoConsultaDTO;
-import med.voll.api.dto.agendamento.DadosDetalhamentoConsultaDTO;
-import med.voll.api.enums.Especialidade;
-import med.voll.api.services.AgendaDeConsultas;
+import med.voll.api.domain.consulta.AgendaDeConsultas;
+import med.voll.api.domain.consulta.DadosAgendamentoConsultaDTO;
+import med.voll.api.domain.consulta.DadosDetalhamentoConsultaDTO;
+import med.voll.api.domain.medico.Especialidade;
 
 @SpringBootTest
 @AutoConfigureMockMvc
