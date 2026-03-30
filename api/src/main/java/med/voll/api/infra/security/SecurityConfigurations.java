@@ -3,7 +3,6 @@ package med.voll.api.infra.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -31,10 +30,8 @@ public class SecurityConfigurations {
 		return http.csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().authorizeHttpRequests()
-				.requestMatchers(HttpMethod.POST, "/login").permitAll()
-				.requestMatchers(HttpMethod.DELETE, "/medicos/excluir").hasRole("ADMIN")
-				.requestMatchers(HttpMethod.DELETE, "/pacientes/excluir").hasRole("ADMIN")
-				.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+				.requestMatchers(PublicEndPoint.toArray()).permitAll()
+				.requestMatchers(AdminEndPoint.toArray()).hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and().addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();
