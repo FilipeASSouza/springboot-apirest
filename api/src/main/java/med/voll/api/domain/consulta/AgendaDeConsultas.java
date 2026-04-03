@@ -25,7 +25,7 @@ public class AgendaDeConsultas {
 	private PacienteRepository pacienteRepository;
 	
 	@Autowired
-	private List<ValidadorAgendamentoDeConsulta> validadores;
+	private List<ValidadorAgendamentoDeConsulta> validadoresAgendamento;
 	
 	@Autowired
 	private List<ValidadorCancelamentoDeConsulta> validadoresCancelamento;
@@ -40,7 +40,7 @@ public class AgendaDeConsultas {
 			throw new ValidacaoException("Medico não está cadastrado!");
 		}
 		
-		validadores.forEach(v -> v.validar(dadosDTO));
+		validadoresAgendamento.forEach(v -> v.validar(dadosDTO));
 		
 		var medico = escolherMedico(dadosDTO);
 		

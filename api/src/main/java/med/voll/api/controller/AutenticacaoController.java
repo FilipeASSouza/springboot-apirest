@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import med.voll.api.domain.usuario.CadastramentoDeUsuario;
 import med.voll.api.domain.usuario.DadosAutenticacaoDTO;
-import med.voll.api.domain.usuario.DadosCadastroUsuarioDTO;
+import med.voll.api.domain.usuario.DadosCadastrarUsuarioDTO;
 import med.voll.api.domain.usuario.Usuarios;
 import med.voll.api.domain.usuario.UsuariosRepository;
 import med.voll.api.infra.security.DadosTokenJWT;
@@ -28,12 +28,12 @@ public class AutenticacaoController {
 	
 	@Autowired
 	private TokenService tokenService;
-
-	@Autowired
-	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
-	private UsuariosRepository repository;
+	private CadastramentoDeUsuario cadastramentoDeUsuarioService;
+	
+	@Autowired
+	private UsuariosRepository usuarioRepository;
 	
 	@PostMapping("/login")
 	public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacaoDTO dados) {
@@ -48,13 +48,9 @@ public class AutenticacaoController {
 	
 	@PostMapping("/usuario/cadastrarUsuario")
 	@Transactional
-	public ResponseEntity cadastrarUsuario(@RequestBody @Valid DadosCadastroUsuarioDTO dados) {
+	public ResponseEntity cadastrarUsuario(@RequestBody @Valid DadosCadastrarUsuarioDTO dados) {
 		
-		String senhaCriptografada = encoder.encode(dados.senha());
-		
-		var usuarios = new Usuarios(dados.login(), senhaCriptografada);
-		
-		repository.save(usuarios);
+		cadastramentoDeUsuarioService.cadastramento(dados);
 		
 		return ResponseEntity.ok().build();
 	}

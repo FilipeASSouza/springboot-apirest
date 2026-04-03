@@ -12,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,6 +29,15 @@ public class Usuarios implements UserDetails {
 	private Long id;
 	private String login;
 	private String senha;
+	private String cpf;
+	private String email;
+	
+	public Usuarios(DadosCadastrarUsuarioDTO dto, String senhaBCrypt) {
+		this.login = dto.login();
+		this.senha = senhaBCrypt;
+		this.cpf = dto.cpf();
+		this.email = dto.email();
+	}
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -72,10 +80,5 @@ public class Usuarios implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-
-	public Usuarios(String login, String senha) {
-		this.login = login;
-		this.senha = senha;
-	}
-
+	
 }

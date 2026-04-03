@@ -1,5 +1,6 @@
 package med.voll.api.infra.exception;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ import jakarta.persistence.EntityNotFoundException;
 
 @RestControllerAdvice
 public class TratadorDeErros {
+	
+	@Autowired
+	private ConstraintViolationResolver resolver;
 
 	@ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity tratarErro404(){
@@ -63,11 +67,13 @@ public class TratadorDeErros {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity falhaIntegridade(DataIntegrityViolationException ex){
+    public ResponseEntity<String> falhaIntegridade(DataIntegrityViolationException ex){
 
-        return ResponseEntity
+    	String mensagem = resolver.resolveMessage(ex.getRootCause());
+    	
+    	return ResponseEntity
                 .badRequest()
-                .body(ex.getMessage());
+                .body(mensagem != null ? mensagem : "Erro de integridade: " + ex.getMessage() );
     }
 
     @ExceptionHandler(ValidacaoException.class)
