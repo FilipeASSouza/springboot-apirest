@@ -9,7 +9,9 @@ public class ConstraintViolationResolver {
 
     private static final Map<String, String> CONSTRAINT_MESSAGES = Map.of(
             "medicos_crm_key", "CRM já cadastrado.",
-            "medicos_email_key", "E-mail já cadastrado."
+            "medicos_email_key", "E-mail já cadastrado.",
+            "pacientes_email_key","E-mail já cadastrado.",
+            "usuarios_cpf_key","CPF já cadastrado."
     );
 
     public String resolveMessage(Throwable rootCause) {
