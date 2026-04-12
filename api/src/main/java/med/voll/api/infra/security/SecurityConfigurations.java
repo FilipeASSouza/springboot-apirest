@@ -27,7 +27,7 @@ public class SecurityConfigurations {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		//esta sendo desabilitado proteção contra ataque csrf por que o token ja faz essa proteção
-		return http.csrf().disable()
+		return http.cors().and().csrf().disable()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and().authorizeHttpRequests()
 				.requestMatchers(PublicEndPoint.toArray()).permitAll()
