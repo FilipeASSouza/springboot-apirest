@@ -15,9 +15,9 @@ public class AutenticacaoService implements UserDetailsService {
 	//classe sera identificada pelo spring no momento da autenticacao
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		return repository.findByLogin(username);
+		return repository.findByEmail(email);
 	}
 
 }
