@@ -31,12 +31,16 @@ public class Usuarios implements UserDetails {
 	private String senha;
 	private String cpf;
 	private String email;
+	private String nome;
+	private String perfil;
 	
 	public Usuarios(DadosCadastrarUsuarioDTO dto, String senhaBCrypt) {
 		this.login = dto.login();
 		this.senha = senhaBCrypt;
 		this.cpf = dto.cpf();
 		this.email = dto.email();
+		this.nome = dto.nome();
+		this.perfil = dto.perfil();
 	}
 	
 	@Override

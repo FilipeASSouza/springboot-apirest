@@ -15,6 +15,9 @@ public record DadosCadastrarUsuarioDTO(
 		String cpf,
 		@NotBlank
 		@Email
-		String email
+		String email,
+		@NotBlank
+		String nome,
+		String perfil
 		) {
 }
