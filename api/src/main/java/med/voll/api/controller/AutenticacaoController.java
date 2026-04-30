@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import med.voll.api.domain.usuario.AutenticationService;
 import med.voll.api.domain.usuario.CadastramentoDeUsuario;
 import med.voll.api.domain.usuario.DadosAutenticacaoDTO;
 import med.voll.api.domain.usuario.DadosCadastrarUsuarioDTO;
 import med.voll.api.domain.usuario.Usuarios;
-import med.voll.api.domain.usuario.UsuariosRepository;
 import med.voll.api.infra.security.DadosTokenJWT;
 import med.voll.api.infra.security.TokenService;
 
@@ -33,10 +33,12 @@ public class AutenticacaoController {
 	private CadastramentoDeUsuario cadastramentoDeUsuarioService;
 	
 	@Autowired
-	private UsuariosRepository usuarioRepository;
+	private AutenticationService autenticationService;
 	
 	@PostMapping("/login")
 	public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacaoDTO dados) {
+		
+		autenticationService.validarUsuario(dados);
 		
 		var autenticationToken = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
 		var autentication = manager.authenticate(autenticationToken);
